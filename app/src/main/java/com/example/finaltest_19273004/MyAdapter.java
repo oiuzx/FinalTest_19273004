@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -39,21 +40,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvRank, tvMovieNm, tvOpenDt;
+        public TextView tvRank, tvMovieNm, tvOpenDt, tvaudiAcc, tvaudiCnt;
         public MyViewHolder(View itemView) {
             super(itemView);
             tvRank=itemView.findViewById(R.id.tv_rank);
             tvMovieNm=itemView.findViewById(R.id.tv_movieNm);
             tvOpenDt=itemView.findViewById(R.id.tv_openDt);
+            tvaudiAcc=itemView.findViewById(R.id.tv_audiAcc);
+            tvaudiCnt=itemView.findViewById(R.id.tv_audiCnt);
 
         }
         public void setItem(Map<String, Object> item){
-
-            //"rank", "movieNm", "openDt"은 Json파일에 저장되어 있던 key값
             tvRank.setText(item.get("rank").toString());
             tvMovieNm.setText(item.get("movieNm").toString());
             tvOpenDt.setText(item.get("openDt").toString());
-
+            tvaudiAcc.setText(item.get("audiAcc").toString());
+            tvaudiCnt.setText(item.get("audiCnt").toString());
         }
     }
 }
