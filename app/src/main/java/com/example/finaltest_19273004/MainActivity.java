@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -45,10 +46,9 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         String date = sdf.format(calendar.getTime());
-        
         setContentView(R.layout.activity_main);
 
-        recyclerView=findViewById(R.id.rv_recyclerview);
+        recyclerView = findViewById(R.id.rv_recyclerview);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -56,15 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetrofitInterface retrofitInterface= retrofit.create(RetrofitInterface.class);
+        RetrofitInterface retrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        retrofitInterface.getBoxOffice(API_KEY,date).enqueue(new Callback<Map<String, Object>>() {
+        retrofitInterface.getBoxOffice(API_KEY, date).enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
 
-                Map<String,Object> boxOfficeResult= (Map<String, Object>) response.body().get("boxOfficeResult");
+                Map<String, Object> boxOfficeResult = (Map<String, Object>) response.body().get("boxOfficeResult");
                 ArrayList<Map<String, Object>> jsonList = (ArrayList) boxOfficeResult.get("dailyBoxOfficeList");
-                mAdapter=new MyAdapter(jsonList);
+                mAdapter = new MyAdapter(jsonList);
 
             }
 
@@ -76,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     }// onCreate()..
 
-    public void click_btn(View view) {
-        recyclerView.setAdapter(mAdapter);
-    }
+    public void click_btn(View view) { recyclerView.setAdapter(mAdapter); }
 
     public void OnClickedGoogle(View v){
         Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://movie.naver.com/movie/search/result.nhn?&section=all&ie=utf8"));
